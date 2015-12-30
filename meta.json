@@ -15,7 +15,7 @@
     ],
     //Required. Outputs the module emits.
     "outputs": [
-        
+
         {
             "id": "id",
             "title":"ID"

@@ -63,7 +63,6 @@ module.exports = _.merge({
              */
             input: {
                 fileId: '1bNyaBuxFpOrZzdRn29nglaL6UfUYMi85X1yQjykSNqk',
-                'content': 'content'
             }
         }
     }
