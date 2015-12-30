@@ -4,23 +4,51 @@
 {
     //Required. Inputs the module expects.
     "inputs": [
-        //e.g.
-        /*
         {
-            "id": "from",
-            "title":"From"
+            "id": "fileId",
+            "title":"File ID"
+        },
+        {
+            "id": "acknowledgeAbuse",
+            "title":"Acknowledge Abuse"
         }
-        */
     ],
     //Required. Outputs the module emits.
     "outputs": [
-      //e.g.
-      /*
+        
         {
-            "id": "from",
-            "title":"From"
+            "id": "id",
+            "title":"ID"
+        },
+        {
+            "id": "name",
+            "title":"Name"
+        },
+        {
+            "id": "description",
+            "title":"Description"
+        },
+        {
+            "id": "parents",
+            "title":"Parents"
+        },
+        {
+            "id": "createdTime",
+            "title":"Created At"
+        },
+        {
+            "id": "owners",
+            "title":"Owner Emails"
+        },
+        {
+            "id": "size",
+            "title":"Size"
+        },
+        {
+            "id": "indexableText",
+            "title":"Indexable Text"
         }
-      */
     ],
+    "icon": "dex-drive",
     "title": "Google Drive Get File" /* Required.A display name for the module */
 }
