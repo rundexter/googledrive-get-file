@@ -3,8 +3,6 @@ var _ = require('lodash'),
     google = require('googleapis'),
     service = google.drive('v3');
 
-var service = google.drive('v3');
-
 var pickInputs = {
         'fileId': { key: 'fileId', validate: { req: true } },
         'acknowledgeAbuse': { key: 'acknowledgeAbuse', type: 'boolean' }
