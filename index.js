@@ -1,5 +1,7 @@
-var google = require('googleapis'),
-    util = require('./util.js');
+var _ = require('lodash'),
+    util = require('./util.js'),
+    google = require('googleapis'),
+    service = google.drive('v3');
 
 var service = google.drive('v3');
 
@@ -21,32 +23,6 @@ var pickInputs = {
 var fieldsFromApi = 'appProperties,capabilities,contentHints,createdTime,description,explicitlyTrashed,fileExtension,folderColorRgb,fullFileExtension,headRevisionId,iconLink,id,imageMediaMetadata,kind,lastModifyingUser,md5Checksum,mimeType,modifiedByMeTime,modifiedTime,name,originalFilename,ownedByMe,owners,parents,permissions,properties,quotaBytesUsed,shared,sharedWithMeTime,sharingUser,size,spaces,starred,thumbnailLink,trashed,version,videoMediaMetadata,viewedByMe,viewedByMeTime,viewersCanCopyContent,webContentLink,webViewLink,writersCanShare';
 
 module.exports = {
-
-    /**
-     * Get auth data.
-     *
-     * @param step
-     * @param dexter
-     * @returns {*}
-     */
-    authOptions: function (step, dexter) {
-        var OAuth2 = google.auth.OAuth2,
-            oauth2Client = new OAuth2();
-
-        if(!dexter.environment('google_access_token')) {
-
-            this.fail('A [google_access_token] environment variable is required for this module');
-            return false;
-        } else {
-
-            oauth2Client.setCredentials({
-                access_token: dexter.environment('google_access_token')
-            });
-
-            return oauth2Client;
-        }
-    },
-
     /**
      * The main entry point for the Dexter module
      *
@@ -54,19 +30,22 @@ module.exports = {
      * @param {AppData} dexter Container for all data used in this workflow.
      */
     run: function(step, dexter) {
-        var auth = this.authOptions(step, dexter),
-            inputs = util.pickInputs(step, pickInputs),
+        var OAuth2 = google.auth.OAuth2,
+            oauth2Client = new OAuth2(),
+            cretentials = dexter.provider('google').credentials();
+        var inputs = util.pickInputs(step, pickInputs),
             validateErrors = util.checkValidateErrors(inputs, pickInputs);
-
-        if (!auth)
-            return;
 
         if (validateErrors)
             return this.fail(validateErrors);
 
-        inputs.fields = fieldsFromApi;
         // set credential
-        google.options({ auth: auth });
+        oauth2Client.setCredentials({
+            access_token: _.get(cretentials, 'access_token')
+        });
+        google.options({ auth: oauth2Client });
+
+        inputs.fields = fieldsFromApi;
         service.files.get(inputs, function (error, data) {
             if (error)
                 this.fail(error);
