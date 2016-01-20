@@ -30,7 +30,7 @@ module.exports = {
     run: function(step, dexter) {
         var OAuth2 = google.auth.OAuth2,
             oauth2Client = new OAuth2(),
-            cretentials = dexter.provider('google').credentials();
+            credentials = dexter.provider('google').credentials();
         var inputs = util.pickInputs(step, pickInputs),
             validateErrors = util.checkValidateErrors(inputs, pickInputs);
 
@@ -39,7 +39,7 @@ module.exports = {
 
         // set credential
         oauth2Client.setCredentials({
-            access_token: _.get(cretentials, 'access_token')
+            access_token: _.get(credentials, 'access_token')
         });
         google.options({ auth: oauth2Client });
 
