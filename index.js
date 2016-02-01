@@ -13,6 +13,7 @@ var pickInputs = {
         'description': 'description',
         'parents': 'parents',
         'createdTime': 'createdTime',
+	'modifiedTime': 'modifiedTime',
         'owners': { keyName: 'owners', fields: ['emailAddress'] },
         'size': 'size',
         'indexableText': 'contentHints.indexableText'
